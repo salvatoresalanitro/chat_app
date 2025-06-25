@@ -40,7 +40,7 @@ class _AuthState extends State<Auth> {
       });
 
       if (_isLogin) {
-        final userCredential = await _firebase.signInWithEmailAndPassword(
+        await _firebase.signInWithEmailAndPassword(
           email: _enteredEmail,
           password: _enteredPassword,
         );
