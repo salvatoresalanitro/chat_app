@@ -22,6 +22,7 @@ class _AuthState extends State<Auth> {
   var _enteredPassword = '';
   File? _selectedImage;
   var _isAuthenticating = false;
+  var _enteredUsername = '';
 
   void _submit() async {
     final isValid = _formKey.currentState!.validate();
@@ -61,7 +62,7 @@ class _AuthState extends State<Auth> {
             .collection('users')
             .doc(userCredential.user!.uid)
             .set({
-              'userName': 'to be done...',
+              'userName': _enteredUsername,
               'email': _enteredEmail,
               'image_url': imageUrl,
             });
@@ -136,6 +137,24 @@ class _AuthState extends State<Auth> {
                               _enteredEmail = value!;
                             },
                           ),
+                          if (!_isLogin)
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                labelText: 'Username',
+                              ),
+                              enableSuggestions: false,
+                              validator: (value) {
+                                if (value == null ||
+                                    value.isEmpty ||
+                                    value.trim().length < 4) {
+                                  return 'Please enter at least 4 characters.';
+                                }
+                                return null;
+                              },
+                              onSaved: (newValue) {
+                                _enteredUsername = newValue!;
+                              },
+                            ),
                           TextFormField(
                             decoration: const InputDecoration(
                               labelText: 'Password',
