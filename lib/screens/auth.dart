@@ -62,7 +62,7 @@ class _AuthState extends State<Auth> {
             .collection('users')
             .doc(userCredential.user!.uid)
             .set({
-              'userName': _enteredUsername,
+              'username': _enteredUsername,
               'email': _enteredEmail,
               'image_url': imageUrl,
             });
